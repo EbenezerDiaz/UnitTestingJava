@@ -16,6 +16,8 @@ public class PlayerTest {
 
         Player player = new Player(dice, 3);
 
-        assertEquals(false, player.play());
+        assertFalse(player.play());
     }
+
+    
 }
