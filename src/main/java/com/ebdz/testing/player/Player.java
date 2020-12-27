@@ -1,2 +1,4 @@
-package com.ebdz.testing.player;public class Player {
+package com.ebdz.testing.player;
+
+public class Player {
 }
