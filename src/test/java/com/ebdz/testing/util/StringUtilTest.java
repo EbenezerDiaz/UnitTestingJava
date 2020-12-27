@@ -31,4 +31,43 @@ public class StringUtilTest {
     public void testRepeatNegativeTimes() {
          StringUtil.repeat("hola", -1);
     }
+
+    @Test
+    public void testIsEmpty_notIsEmpty(){
+        String stringToTest = "cualquera";
+
+        boolean result = StringUtil.isEmpty(stringToTest);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testIsEmpty_VoidIsEmpty(){
+        String stringToTest = "";
+
+        boolean result = StringUtil.isEmpty(stringToTest);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsEmpty_NullIsEmpty(){
+        String stringToTest = null;
+
+        boolean result = StringUtil.isEmpty(stringToTest);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsEmpty_OnlySpacesIsEmpty(){
+        String stringToTest = "    ";
+
+        boolean result = StringUtil.isEmpty(stringToTest);
+
+        assertTrue(result);
+    }
+
+
+
 }
