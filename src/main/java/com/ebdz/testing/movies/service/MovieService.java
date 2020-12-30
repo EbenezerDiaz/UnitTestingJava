@@ -5,6 +5,7 @@ import com.ebdz.testing.movies.model.Genre;
 import com.ebdz.testing.movies.model.Movie;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class MovieService {
@@ -24,6 +25,18 @@ public class MovieService {
     public Collection<Movie> findMovieByLength(int length) {
         return movieRepository.findAll().stream()
                 .filter(movie -> movie.getMinutes() <= length).collect(Collectors.toList());
+
+    }
+
+    public Collection<Movie> findMovieByName(String name){
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+    }
+
+    public Collection<Movie> findMovieByDirector(String director) {
+
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getDirector().toLowerCase().contains(director.toLowerCase())).collect(Collectors.toList());
 
     }
 }

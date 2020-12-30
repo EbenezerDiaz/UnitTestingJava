@@ -11,4 +11,6 @@ public interface MovieRepository {
     Collection<Movie> findAll();
 
     void saveOrUpdate(Movie movie);
+
+    Movie findByName(String name);
 }

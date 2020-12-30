@@ -43,9 +43,9 @@ public class MovieRepositoryIntegrationTest {
         Collection<Movie> movies = movieRepository.findAll();
 
         assertThat(movies, is(Arrays.asList(
-                new Movie(1,"Dark Knight",152,Genre.ACTION),
-                new Movie(2,"Memento",113,Genre.THRILLER),
-                new Movie(3,"Matrix",136, Genre.ACTION)
+                new Movie(1,"Dark Knight",152,Genre.ACTION,"director"),
+                new Movie(2,"Memento",113,Genre.THRILLER,"director"),
+                new Movie(3,"Matrix",136, Genre.ACTION,"director")
         )));
     }
 
@@ -54,22 +54,33 @@ public class MovieRepositoryIntegrationTest {
 
         Movie movie = movieRepository.findById(2);
 
-        assertThat(movie, is(new Movie(2,"Memento",113,Genre.THRILLER)));
+        assertThat(movie, is(new Movie(2,"Memento",113,Genre.THRILLER,"director")));
+
+    }
+
+    @Test
+    public void find_movie_by_name() {
+
+        Movie movie = movieRepository.findByName("Memento");
+
+        assertThat(movie, is(new Movie(2,"Memento",113,Genre.THRILLER,"director")));
 
     }
 
     @Test
     public void insert_a_movie() {
 
-        Movie movie = new Movie("Super 8",112,Genre.THRILLER);
+        Movie movie = new Movie("Super 8",112,Genre.THRILLER,"director");
 
         movieRepository.saveOrUpdate(movie);
 
         Movie movieFromDB =  movieRepository.findById(4);
 
-        assertThat(movieFromDB, is(new Movie(4,"Super 8",112,Genre.THRILLER)));
+        assertThat(movieFromDB, is(new Movie(4,"Super 8",112,Genre.THRILLER,"director")));
 
     }
+
+
 
     @After
     public void tearDown() throws Exception {

@@ -27,16 +27,17 @@ public class MovieServiceShould {
 
         Mockito.when(movieRepository.findAll()).thenReturn(
                 Arrays.asList(
-                        new Movie(1, "A", 152, Genre.ACTION),
-                        new Movie(2, "B", 113, Genre.THRILLER),
-                        new Movie(3, "C", 119, Genre.COMEDY),
-                        new Movie(4, "D", 112, Genre.THRILLER),
-                        new Movie(5, "B", 111, Genre.HORROR),
-                        new Movie(6, "C", 103, Genre.COMEDY),
-                        new Movie(7, "D", 136, Genre.ACTION),
-                        new Movie(8, "E", 145, Genre.DRAMA)
+                        new Movie(1,"Dark Knight",152,Genre.ACTION,"director2"),
+                        new Movie(2,"Memento",113,Genre.THRILLER,"director1"),
+                        new Movie(3,"There's Something About Mary",119,Genre.COMEDY,"director2"),
+                        new Movie(4,"Super 8",112,Genre.THRILLER,"director1"),
+                        new Movie(5,"Scream",111,Genre.HORROR,"director2"),
+                        new Movie(6,"Home Alone",103,Genre.COMEDY,"director1"),
+                        new Movie(7,"Matrix",136,Genre.ACTION,"director2"),
+                        new Movie(8,"Superman",140,Genre.ACTION,"director2")
                 )
         );
+
 
         movieService = new MovieService(movieRepository);
 
@@ -55,6 +56,20 @@ public class MovieServiceShould {
 
         Collection<Movie> movies = movieService.findMovieByLength(119);
         assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2, 3, 4, 5, 6)));
+    }
+
+    @Test
+    public void return_movies_by_name(){
+
+        Collection<Movie> movies = movieService.findMovieByName("suPEr");
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(4, 8)));
+    }
+
+    @Test
+    public void return_movies_by_director(){
+
+        Collection<Movie> movies = movieService.findMovieByDirector("Director1");
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2, 4, 6)));
     }
 
     @NotNull

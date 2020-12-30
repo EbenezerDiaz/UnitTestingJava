@@ -30,9 +30,15 @@ public class MovieRepositoryImpl implements MovieRepository {
     @Override
     public void saveOrUpdate(Movie movie) {
 
-        jdbcTemplate.update("insert into movies (name, minutes, genre) values (?,?,?)",
-                movie.getName(), movie.getMinutes(), movie.getGenre().toString());
+        jdbcTemplate.update("insert into movies (name, minutes, genre, director) values (?,?,?, ?)",
+                movie.getName(), movie.getMinutes(), movie.getGenre().toString(), movie.getDirector());
 
+    }
+
+    @Override
+    public Movie findByName(String name) {
+        Object[] args = {name};
+        return jdbcTemplate.queryForObject("SELECT * FROM movies WHERE name = ?", args, movieMapper);
     }
 
     private static RowMapper<Movie> movieMapper = (resultSet, i) ->
@@ -40,6 +46,7 @@ public class MovieRepositoryImpl implements MovieRepository {
                 resultSet.getInt("Id"),
                 resultSet.getString("name"),
                 resultSet.getInt("minutes"),
-                Genre.valueOf(resultSet.getString("genre"))
+                Genre.valueOf(resultSet.getString("genre")),
+                resultSet.getString("director")
     );
 }
